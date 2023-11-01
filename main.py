@@ -1,8 +1,7 @@
 import math
 
-atoms = {
+atoms : dict = {
 #   'ELEMENT' = (name, atomic mass)
-#   get index for atomic #
     'H': ("Hydrogen", 1.0078),
     'He': ("Helium", 4.0026),
     'Li': ("Lithium", 6.9410),
@@ -59,8 +58,8 @@ atoms = {
     'Xe': ("Xenon", 131.29),
 }
 
-def get_period(atomic_num):
-    period = -1
+def get_period(atomic_num) -> int:
+    period = None
     if atomic_num >= 1 and atomic_num <= 2:
         period = 1
     elif atomic_num >= 3 and atomic_num <= 10:
@@ -77,7 +76,7 @@ def get_period(atomic_num):
         period = 7
     return period
 
-def get_atomic_data(element, atomic_num):
+def get_atomic_data(element, atomic_num) -> tuple:
     name, atomic_mass = atoms[element]
     avg_atomic_mass = round(atomic_mass, 0)
     
@@ -94,7 +93,7 @@ def get_atomic_data(element, atomic_num):
     print(f"P: {protons}, N: {neutrons}, E: {electrons}\n")
     
     # perioid/column, type, quantum numbers, bohr model
-    #return (protons, neutrons, electrons), do * unpack
+    return (protons, neutrons, electrons)
 
 def main():
     for i, key in enumerate(atoms): # do input instead. * for all elements, ext to stop.
