@@ -1,6 +1,6 @@
 import math
 
-atoms : dict = {
+atoms = {
 #   'ELEMENT' = (name, atomic mass)
     'H': ("Hydrogen", 1.0078),
     'He': ("Helium", 4.0026),
@@ -59,7 +59,7 @@ atoms : dict = {
 }
 
 def get_period(atomic_num) -> int:
-    period = None
+    period = -1
     if atomic_num >= 1 and atomic_num <= 2:
         period = 1
     elif atomic_num >= 3 and atomic_num <= 10:
@@ -76,28 +76,72 @@ def get_period(atomic_num) -> int:
         period = 7
     return period
 
+def get_group(atomic_num, period) -> int:
+    pass
+
 def get_atomic_data(element, atomic_num) -> tuple:
     name, atomic_mass = atoms[element]
     avg_atomic_mass = round(atomic_mass, 0)
     
     protons = float(atomic_num)
-    if protons <= 0:
-        protons = 1.0
     
     neutrons = avg_atomic_mass - protons
     electrons = protons
     
     period = get_period(atomic_num)
-    print(f"{element}: {name}\n[Period: {period} Column: N/A]")
+    print(f"{element}: {name}\n[Period: {period} Group: N/A Category: N/A]")
     print(f"Avg atomic mass: {avg_atomic_mass}u")
     print(f"P: {protons}, N: {neutrons}, E: {electrons}\n")
     
     # perioid/column, type, quantum numbers, bohr model
-    return (protons, neutrons, electrons)
+
+def choose_element_loop():
+    while True:
+        inp = input("\nEnter an element symbol, name, atomic #, or X to exit:\n").capitalize()
+
+        if inp == 'X':
+            print("\n---------------------------")
+            break
+        elif inp in atoms:
+            get_atomic_data(inp, list(atoms.keys()).index(inp) + 1)
+            continue
+        else:
+            found = False
+            for index, key in enumerate(atoms):
+                if atoms[key][0] == inp:
+                    get_atomic_data(key, index + 1)
+                    found = True
+                    break
+            if found: continue
+        try:
+            atom = list(atoms)[int(inp) - 1]
+            get_atomic_data(atom, int(inp))
+        except (ValueError, IndexError) as error:
+            print("Bad input, try again.\n")
+            continue
+
+def list_all_elements():
+    for i, key in enumerate(atoms):
+        get_atomic_data(key, i + 1)
 
 def main():
-    for i, key in enumerate(atoms): # do input instead. * for all elements, ext to stop.
-        get_atomic_data(key, i + 1)
+    while True:
+        try:
+            inp = input("Would you like to (1) list all elements, (2) choose them, or (X) to exit?\n")
+            if inp == 'x' or inp == 'X':
+                print("\n---------------------------")
+                break
+            if int(inp) == 1:
+                list_all_elements()
+            elif int(inp) == 2:
+                choose_element_loop()
+            else:
+                raise ValueError("Bad input.")
+        except ValueError:
+            print("Invalid input, try again.\n")
+    
+    #for i, key in enumerate(atoms): # do input instead. * for all elements, ext to stop.
+    #    get_atomic_data(key, i + 1)
 
 if __name__ == "__main__":
     main()
