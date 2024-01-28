@@ -1,9 +1,5 @@
 import math
 from atom import atoms, atom
-import json
-
-#with open("atoms.json") as f:
-#    atoms = json.load(f)
 
 def choose_element_loop():
     while True:

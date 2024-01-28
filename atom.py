@@ -1,6 +1,6 @@
 atoms = {
 #   'ELEMENT' = (name, atomic mass)
-# change to json?
+#   change to json?
     'H': ("Hydrogen", 1.0078),
     'He': ("Helium", 4.0026),
     'Li': ("Lithium", 6.9410),
@@ -81,7 +81,7 @@ class atom:
         
         self.period = self.get_period()
         
-        self.get_electron_configuration()
+        self.configuration = self.get_electron_configuration()
     
     def get_period(self) -> int:
         if self.atomic_number >= 1 and self.atomic_number <= 2:
@@ -96,12 +96,13 @@ class atom:
             period = 5
         elif self.atomic_number >= 55 and self.atomic_number <= 86:
             period = 6
-        elif self.atomic_number >= 87 and self.atomic_number <= 118: #debatable?
+        elif self.atomic_number >= 87 and self.atomic_number <= 118:
             period = 7
         return period
     
     def get_group(self) -> int:
-        pass
+        last_electron = self.configuration[-1]
+        
     
     def get_electron_configuration(self) -> str: #refactor this its really bad
         configuration = ""
