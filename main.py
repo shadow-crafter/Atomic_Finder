@@ -1,5 +1,5 @@
 import math
-from atom import atoms, atom
+from atom import atoms, Atom
 
 def choose_element_loop():
     while True:
@@ -10,17 +10,15 @@ def choose_element_loop():
             print("\n---------------------------")
             break
         elif inp in atoms:
-            new_atom = atom(inp)
+            new_atom = Atom(inp)
         else:
-            found = False
-            for index, key in enumerate(atoms):
+            for _, key in enumerate(atoms):
                 if atoms[key][0] == inp:
-                    new_atom = atom(key)
-                    found = True
+                    new_atom = Atom(key)
                     break
         if new_atom == None:
             try:
-                new_atom = atom(list(atoms)[int(inp) - 1])
+                new_atom = Atom(list(atoms)[int(inp) - 1])
             except (ValueError, IndexError):
                 print("Bad input, try again.\n")
                 continue
@@ -28,8 +26,8 @@ def choose_element_loop():
         new_atom.display_atom_data()
 
 def list_all_elements():
-    for i, key in enumerate(atoms):
-        new_atom = atom(key)
+    for _, key in enumerate(atoms):
+        new_atom = Atom(key)
         new_atom.display_atom_data()
 
 def main():
